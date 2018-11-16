@@ -1,43 +1,61 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+var prefix = "9";
+
+ client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+ client.user.setActivity("By : Omar",{type: 'WATCHING'})
+  console.log('')
+  console.log('')
+  console.log('╔[═════════════════════════════════════════════════════════════════]╗')
+  console.log(`[Start] ${new Date()}`);
+  console.log('╚[═════════════════════════════════════════════════════════════════]╝')
+  console.log('')
+  console.log('╔[════════════════════════════════════]╗');
+  console.log(`Logged in as * [ " ${client.user.username} " ]`);
+  console.log('')
+  console.log('Informations :')
+  console.log('')
+  console.log(`servers! [ " ${client.guilds.size} " ]`);
+  console.log(`Users! [ " ${client.users.size} " ]`);
+  console.log(`channels! [ " ${client.channels.size} " ]`);
+  console.log('╚[════════════════════════════════════]╝')
+  console.log('')
+  console.log('╔[════════════]╗')
+  console.log(' Bot Is Online')
+  console.log('╚[════════════]╝')
+  console.log('')
+  console.log('')
+});
 
 
-const devs = ['483743143989084161' , '483743143989084161' , '483743143989084161' , '483743143989084161'];
-const adminprefix = "-";
+
 client.on('message', message => {
-    var argresult = message.content.split(` `).slice(1).join(' ');
-      if (!devs.includes(message.author.id)) return;
-      
-  if (message.content.startsWith(adminprefix + 'ply')) {
-    client.user.setGame(argresult);
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'wt')) {
-  client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'ls')) {
-  client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'st')) {
-    client.user.setGame(argresult, "https://www.twitch.tv/idk");
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  }
-  });
+if (message.content === "test") {
+  var ms = 120000;
+      var interval = setInterval (function () {
+        message.channel.send("لا إله الا الله, سبحان الله, الحمدالله, الله اكبرلا إله الا الله, سبحان الله, الحمدالله, الله اكبرلا إله الا الله, سبحان الله, الحمدالله, الله اكبر")
+      }, ms); 
+    }
+});
 
-  
-  client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag} !`);
+
  
-});
- 
-client.on('guildMemberAdd',async member => {
-  if(member.guild.id !== '501419525661786122') return;
-  setTimeout(function(){
-  member.guild.channels.find(r => r.id === '501420247392190465').send('You`re In  **Energy**  Welcome ..');
-},3000);
-});
+client.on('message', message => {
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
+
+  let command = message.content.split(" ")[0];
+  command = command.slice(prefix.length);
+
+  let args = message.content.split(" ").slice(1);
+
+  if (command == "say") {
+if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('?|**\`ADMINISTRATOR\`ليس لديك صلاحيات`**');
+   message.channel.sendMessage(args.join("  "))
+   message.delete()
+  }
+ });
   
 
 client.login(process.env.BOT_TOKEN);
